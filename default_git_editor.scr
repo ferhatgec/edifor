@@ -1,0 +1,2 @@
+system("git config --global core.editor edifor");
+return
