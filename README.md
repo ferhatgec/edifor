@@ -2,7 +2,7 @@
 ## Mostly inspired CLI Code editor.
 
 ## TODO:
-  * [ ] Syntax Highlighting
+  * [x] Syntax Highlighting
   * [ ] Scripting language
   * [ ] Auto-complete support
   * [x] Run with arg.
