@@ -21,7 +21,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define EDIFOR_VERSION "0.1-beta-1"
+#define EDIFOR_VERSION "0.2-beta-1"
 #define EDIFOR_TAB_STOP 8
 #define EDIFOR_QUIT_TIMES 3
 
