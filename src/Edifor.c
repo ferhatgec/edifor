@@ -672,7 +672,7 @@ int main(int argc, char *argv[]){
         editorOpen(argv[1]);
     }
 
-    editorSetStatusMessage("Help - CTRL + X : quit.");
+    editorSetStatusMessage("Tip: CTRL + S : Save | CTRL + X : Quit.");
 
     while(1) {
         editorRefreshScreen();
