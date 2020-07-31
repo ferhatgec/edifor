@@ -1,2 +1,2 @@
 #!/bin/sh
-gcc Edifor.c -o edifor
+gcc -I./include/ ./src/Edifor.c -o edifor
