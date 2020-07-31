@@ -673,9 +673,11 @@ int main(int argc, char *argv[]){
     }
 
     editorSetStatusMessage("Tip: CTRL + S : Save | CTRL + X : Quit.");
-
+    
     while(1) {
-        editorRefreshScreen();
+	if(getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
+        E.screenrows -= 2;
+	editorRefreshScreen();
         editorProcessKeypress();
     }
     return 0;
