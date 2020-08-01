@@ -1,0 +1,2 @@
+system("gcc -I./include/ ./src/Edifor.c -o /bin/edifor");
+return
