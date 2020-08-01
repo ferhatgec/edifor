@@ -990,6 +990,8 @@ int main(int argc, char *argv[]) {
     "HELP: Ctrl-S = save | Ctrl-Q = quit | Ctrl-F = find");
 
   while (1) {
+    if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
+    E.screenrows -= 2;	
     editorRefreshScreen();
     editorProcessKeypress();
   }
