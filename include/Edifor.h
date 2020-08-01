@@ -26,9 +26,6 @@
 #define EDIFOR_QUIT_TIMES 3
 
 #define CTRL_KEY(k) ((k) & 0x1f)
-#define APP_VERSION "0.1"
-#define TAB_STOP 4
-#define QUIT_TIMES 1
 
 #define HL_HIGHLIGHT_NUMBERS (1<<0)
 #define HL_HIGHLIGHT_STRINGS (1<<1)
