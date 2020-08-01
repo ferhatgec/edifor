@@ -1,3 +1,10 @@
+/* MIT License
+#
+# Copyright (c) 2020 Ferhat Geçdoğan All Rights Reserved.
+# Distributed under the terms of the MIT License.
+#
+# */
+
 /*** includes ***/
 
 #define _DEFAULT_SOURCE
@@ -18,27 +25,24 @@
 #include <unistd.h>
 
 #include <Edifor.h>
+#include <Language.h>
 
 /*** editorConfig ***/
 
 struct editorConfig E;
 
-/*** filetypes ***/
-
-char *C_HL_extensions[] = { ".c", ".h", ".cpp", NULL };
-char *C_HL_keywords[] = {
-  "switch", "if", "while", "for", "break", "continue", "return", "else",
-  "struct", "union", "typedef", "static", "enum", "class", "case",
-
-  "int|", "long|", "double|", "float|", "char|", "unsigned|", "signed|",
-  "void|", NULL
-};
-
 struct editorSyntax HLDB[] = {
   {
-    "c",
+    "C",
     C_HL_extensions,
     C_HL_keywords,
+    "//", "/*", "*/",
+    HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+  },
+  {
+    "C++",
+    Cpp_HL_extensions,
+    Cpp_HL_keywords,
     "//", "/*", "*/",
     HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
   },
