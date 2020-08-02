@@ -7,10 +7,10 @@
     * [x] C++^
     * [x] FlaScript
     * [ ] Java
-    * [ ] Python^
+    * [x] Python^
     * [ ] Assembly
     * [ ] FreeBrain
-    * [ ] Shell
+    * [x] Shell^
     * [ ] Ruby
   * [x] Code Template
   * [ ] Scripting language
