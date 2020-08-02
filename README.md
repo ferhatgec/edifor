@@ -5,7 +5,7 @@
   * [x] Syntax Highlighting (^ = Code template support)
     * [x] C^
     * [x] C++^
-    * [x] FlaScript
+    * [x] FlaScript^
     * [ ] Java
     * [x] Python^
     * [ ] Assembly
