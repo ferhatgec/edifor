@@ -30,4 +30,14 @@ char *Cpp_HL_keywords[] = {
   "void|", NULL
 };
 
+/* FlaScript Template */
+char *FlaScript_HL_extensions[] = { ".fls", ".flsh", NULL }; 
+char *FlaScript_HL_keywords[] = {
+  "import", "if", "env", "EraseAllSubstring", "exec", "system", "executepp", "func", "ifdef", "endif}", "input", "var",
+  "newline", "main()", "main", "random", "print", "[this]", "read", "arch", "osname", "uptime", "username",
+
+  "int|", "int&|", "string&|", "get|", "float|", "volatile|" , "asm|", "string|", "colorized|", "rcolorized|", "signed|",
+  "type|", NULL
+};
+
 #endif // LANGUAGE_H
