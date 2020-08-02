@@ -1,7 +1,7 @@
-# Edifor
+# Fegeya Edifor
 ## Mostly inspired CLI Code editor.
 
-## TODO:
+## Features, Goals:
   * [x] Syntax Highlighting (^ = Code template support)
     * [x] C^
     * [x] C++^
