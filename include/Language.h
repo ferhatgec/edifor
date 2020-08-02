@@ -40,4 +40,15 @@ char *FlaScript_HL_keywords[] = {
   "type|", NULL
 };
 
+/* Python Template */
+char *Python_HL_extensions[] = { ".py", ".pyc", ".pyw", ".pyi", ".pyd", NULL }; 
+char *Python_HL_keywords[] = {
+  "and", "as", "assert", "break", "class", "continue", "def", "del", "elif", "else",
+  "except", "False", "finally", "for", "from", "if", "in", "is", "lambda", "None", 
+  "nonlocal", "not", "or", "pass", "raise", "return", "True", "try", "while", "with", "yield"
+  "print", "repr", "eval", "list", "set", "chr", "ord", "hex", "oct",
+
+  "int|", "long|", "float|", "complex|", "global|" , "import|", "str|", NULL
+};
+
 #endif // LANGUAGE_H
