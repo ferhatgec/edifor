@@ -896,6 +896,37 @@ void editorMoveCursor(int key) {
   }
 }
 
+void editorTemplateCode() {
+	char *code;
+	char *template = editorPrompt("Template %s (ESC to cancel)", NULL);
+	if(strstr(template, "C++") || strstr(template, "c++") ||
+	strstr(template, "CPP") || strstr(template, "cpp")) {
+		code = "#include <iostream>";
+		editorInsertRow(0, code, strlen(code));
+		code = "int main(int argc, char** argv) {";
+		editorInsertRow(2, code, strlen(code));
+		code = "std::cout << \"Hello C++!\";";
+		editorInsertRow(3, code, strlen(code));
+		code = "return 0;";
+		editorInsertRow(4, code, strlen(code));
+		code = "}";
+		editorInsertRow(5, code, strlen(code));
+	} else if(strstr(template, "C") || strstr(template, "c")) {
+		code = "#include <stdio.h>";
+		editorInsertRow(0, code, strlen(code));
+		code = "int main(int argc, char** argv) {";
+		editorInsertRow(2, code, strlen(code));
+		code = "printf(\"Hello C!\");";
+		editorInsertRow(3, code, strlen(code));
+		code = "return 0;";
+		editorInsertRow(4, code, strlen(code));
+		code = "}";
+		editorInsertRow(5, code, strlen(code));
+	} else { 
+		editorInsertRow(0, template, strlen(template));
+	}
+}	
+
 void editorProcessKeypress() {
   static int quit_times = EDIFOR_QUIT_TIMES;
 
@@ -908,7 +939,7 @@ void editorProcessKeypress() {
 
     case CTRL_KEY('q'):
       if (E.dirty && quit_times > 0) {
-        editorSetStatusMessage("WARNING!!! File has unsaved changes. "
+        editorSetStatusMessage("Warning. File has unsaved changes. "
           "Press Ctrl-Q %d more times to quit.", quit_times);
         quit_times--;
         return;
@@ -933,6 +964,10 @@ void editorProcessKeypress() {
 
     case CTRL_KEY('f'):
       editorFind();
+      break;
+
+    case CTRL_KEY('g'):
+      editorTemplateCode();
       break;
 
     case BACKSPACE:
@@ -1005,7 +1040,7 @@ int main(int argc, char *argv[]) {
   }
 
   editorSetStatusMessage(
-    "HELP: Ctrl-S = save | Ctrl-Q = quit | Ctrl-F = find");
+    "Ctrl-S = Save | Ctrl-Q = Quit | Ctrl-F = Find | CTRL-G = Template");
 
   while (1) {
     if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
