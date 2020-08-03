@@ -909,7 +909,7 @@ void editorTemplateCode() {
 		editorInsertRow(0, code, strlen(code));
 		code = "int main(int argc, char** argv) {";
 		editorInsertRow(2, code, strlen(code));
-		code = "std::cout << \"Hello C++!\";";
+		code = "std::cout << \"Hello, C++!\";";
 		editorInsertRow(3, code, strlen(code));
 		code = "return 0;";
 		editorInsertRow(4, code, strlen(code));
@@ -920,12 +920,16 @@ void editorTemplateCode() {
 		editorInsertRow(0, code, strlen(code));
 		code = "int main(int argc, char** argv) {";
 		editorInsertRow(2, code, strlen(code));
-		code = "printf(\"Hello C!\");";
+		code = "printf(\"Hello, C!\");";
 		editorInsertRow(3, code, strlen(code));
 		code = "return 0;";
 		editorInsertRow(4, code, strlen(code));
 		code = "}";
 		editorInsertRow(5, code, strlen(code));
+	} else if(strstr(template, "Python") || strstr(template, "python") || 
+	strstr(template, "python3")) {
+		code = "print('Hello, Python!')";
+		editorInsertRow(0, code, strlen(code));
 	} else { 
 		editorInsertRow(0, template, strlen(template));
 	}
