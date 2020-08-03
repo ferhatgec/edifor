@@ -2,16 +2,17 @@
 ## Mostly inspired CLI Code editor.
 
 ## TODO:
-  * [x] Syntax Highlighting 
-    * [x] C
-    * [x] C++
+  * [x] Syntax Highlighting (^ = Code template support)
+    * [x] C^
+    * [x] C++^
     * [x] FlaScript
     * [ ] Java
-    * [ ] Python
+    * [ ] Python^
     * [ ] Assembly
     * [ ] FreeBrain
     * [ ] Shell
     * [ ] Ruby
+  * [x] Code Template
   * [ ] Scripting language
   * [ ] Auto-complete support
   * [x] Run with arg.
