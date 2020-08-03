@@ -899,6 +899,10 @@ void editorMoveCursor(int key) {
 void editorTemplateCode() {
 	char *code;
 	char *template = editorPrompt("Template %s (ESC to cancel)", NULL);
+	if(template == NULL) {
+		editorSetStatusMessage("Save aborted");
+		return;
+	} else {
 	if(strstr(template, "C++") || strstr(template, "c++") ||
 	strstr(template, "CPP") || strstr(template, "cpp")) {
 		code = "#include <iostream>";
@@ -924,6 +928,7 @@ void editorTemplateCode() {
 		editorInsertRow(5, code, strlen(code));
 	} else { 
 		editorInsertRow(0, template, strlen(template));
+	}
 	}
 }	
 
