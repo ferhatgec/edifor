@@ -60,6 +60,13 @@ struct editorSyntax HLDB[] = {
     "#", "\"\"\"", "\"\"\"",
     HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
   },
+  {
+    "Bash",
+    Bash_HL_extensions,
+    Bash_HL_keywords,
+    "#", ": '", "'",
+    HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+  },
 };
 
 #define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))

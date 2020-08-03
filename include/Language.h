@@ -51,4 +51,14 @@ char *Python_HL_keywords[] = {
   "int|", "long|", "float|", "complex|", "global|" , "import|", "str|", NULL
 };
 
+/* Bash Script Template */
+char *Bash_HL_extensions[] = { ".sh", ".bash", NULL }; 
+char *Bash_HL_keywords[] = {
+  "if", "set", "function", "fi", "exec", "printf", "then", "else", "exit", "cd",
+  "elif", "while", "case", "esac", "done", "return", "in", "source", "trap", "echo", 
+  "break", "read", "for", "rm", "cat", "return", "sleep", "do", "shopt", "declare",
+
+  "local|", "readonly|", "sudo|", NULL
+};
+
 #endif // LANGUAGE_H
