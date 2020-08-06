@@ -6,6 +6,7 @@
     * [x] C^
     * [x] C++^
     * [x] FlaScript^
+    * [x] Lua
     * [ ] Java
     * [x] Python^
     * [ ] Assembly
