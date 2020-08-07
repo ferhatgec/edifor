@@ -71,4 +71,16 @@ char *Bash_HL_keywords[] = {
   "local|", "readonly|", "sudo|", NULL
 };
 
+/* Lua Template */
+char *Lua_HL_extensions[] = { ".lua", NULL }; 
+char *Lua_HL_keywords[] = {
+  "and", "break", "do", "else", "elseif", "end", "false", "for", "function", "if", "in",
+  "nil", "not", "or", "repeat", "return", "then", "true", "until", "while", "print", "sqrt", "read", "sin",
+  
+  "[", "]", "<", ">", "{", "}", "(", ")", "#", ".", "..", "...", ",", ":", ";", "=", "<", ">", "==", "~=", ">=", "<=",
+  "^", "%", "/", "*", "-", "+",
+
+  "local|", NULL
+};
+
 #endif // LANGUAGE_H

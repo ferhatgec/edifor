@@ -67,6 +67,13 @@ struct editorSyntax HLDB[] = {
     "#", ": '", "'",
     HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
   },
+  {
+    "Lua",
+    Lua_HL_extensions,
+    Lua_HL_keywords,
+    "--", "--[[", "--]]",
+    HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+  },
 };
 
 #define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
