@@ -944,6 +944,9 @@ void editorTemplateCode() {
 	strstr(template, "python3")) {
 		code = "print('Hello, Python!')";
 		editorInsertRow(0, code, strlen(code));
+	} else if(strstr(template, "lua") || strstr(template, "Lua") || strstr(template, "LUA")) {
+		code = "print(\"Hello, Lua!\")";
+		editorInsertRow(0, code, strlen(code));
 	} else { 
 		editorInsertRow(0, template, strlen(template));
 	}
