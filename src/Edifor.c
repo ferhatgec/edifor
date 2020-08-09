@@ -74,6 +74,13 @@ struct editorSyntax HLDB[] = {
     "--", "--[[", "--]]",
     HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
   },
+  {
+    "Scrift",
+    Scrift_HL_extensions,
+    Scrift_HL_keywords,
+    "#", "#*", "*#",
+    HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
+  },
 };
 
 #define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
