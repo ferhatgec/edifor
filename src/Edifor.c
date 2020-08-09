@@ -936,6 +936,11 @@ void editorTemplateCode() {
 		editorInsertRow(4, code, strlen(code));
 		code = "}";
 		editorInsertRow(5, code, strlen(code));
+	} else if(strstr(template, "scrift") || strstr(template, "Scrift")) {
+		code = "printlnf(\"Hello, Scrift!\");";
+		editorInsertRow(0, code, strlen(code));
+		code = "return";
+		editorInsertRow(1, code, strlen(code));
 	} else if(strstr(template, "C") || strstr(template, "c")) {
 		code = "#include <stdio.h>";
 		editorInsertRow(0, code, strlen(code));
