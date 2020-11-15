@@ -918,6 +918,14 @@ void editorMoveCursor(int key) {
   }
 }
 
+void editorReadOnlyMode() {	
+	char *template;
+	
+	do { template = editorPrompt("Read-only mode enabled. %s (ESC to cancel)", NULL); } while(template != NULL);
+	
+	editorSetStatusMessage("Ctrl-S = Save | Ctrl-Q = Quit | Ctrl-F = Find | CTRL-G = Template"); 
+}
+
 void editorTemplateCode() {
 	char *code;
 	char *template = editorPrompt("Template %s (ESC to cancel)", NULL);
@@ -992,6 +1000,10 @@ void editorProcessKeypress() {
       editorSave();
       break;
 
+	case CTRL_KEY('r'):
+		editorReadOnlyMode();
+		break;
+      
     case HOME_KEY:
       E.cx = 0;
       break;
@@ -1074,16 +1086,18 @@ void initEditor() {
 int main(int argc, char *argv[]) {
   enableRawMode();
   initEditor();
+  
   if (argc >= 2) {
     editorOpen(argv[1]);
   }
 
   editorSetStatusMessage(
-    "Ctrl-S = Save | Ctrl-Q = Quit | Ctrl-F = Find | CTRL-G = Template");
+    "CTRL : S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
 
   while (1) {
     if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
-    E.screenrows -= 2;	
+    E.screenrows -= 2;
+    
     editorRefreshScreen();
     editorProcessKeypress();
   }
