@@ -921,14 +921,14 @@ void editorMoveCursor(int key) {
 void editorReadOnlyMode() {	
 	char *template;
 	
-	do { template = editorPrompt("Read-only mode enabled. %s (ESC to cancel)", NULL); } while(template != NULL);
+	do { template = editorPrompt("[read-only](edifor)> %s (ESC to cancel)", NULL); } while(template != NULL);
 	
 	editorSetStatusMessage("Ctrl-S = Save | Ctrl-Q = Quit | Ctrl-F = Find | CTRL-G = Template"); 
 }
 
 void editorTemplateCode() {
 	char *code;
-	char *template = editorPrompt("Template %s (ESC to cancel)", NULL);
+	char *template = editorPrompt("[template](edifor)> %s (ESC to cancel)", NULL);
 	if(template == NULL) {
 		editorSetStatusMessage("Save aborted");
 		return;
@@ -994,6 +994,9 @@ void edifor_input_parser() {
 			}
 			
 			editorSetStatusMessage(template);
+		} else if(strstr(template, "tip")) {
+			editorSetStatusMessage(
+    			"[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
 		} else {
 			system(template);
 		}
@@ -1013,7 +1016,7 @@ void editorProcessKeypress() {
 
     case CTRL_KEY('q'):
       if (E.dirty && quit_times > 0) {
-        editorSetStatusMessage("Warning. File has unsaved changes. "
+        editorSetStatusMessage("[warning](edifor)> File has unsaved changes. "
           "Press Ctrl-Q %d more times to quit.", quit_times);
         quit_times--;
         return;
@@ -1123,7 +1126,7 @@ int main(int argc, char *argv[]) {
   }
 
   editorSetStatusMessage(
-    "CTRL : S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
+    "[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
 
   while (1) {
     if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
