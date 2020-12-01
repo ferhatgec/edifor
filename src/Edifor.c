@@ -987,6 +987,12 @@ void edifor_input_parser() {
 			editorOpen(template);
 		} else if(strstr(template, "echo ")) {
 			memmove(template, template + 5, strlen(template));
+			
+			if(template[0] == '$') {
+				memmove(template, template + 1, strlen(template));					
+				template = getenv(template);
+			}
+			
 			editorSetStatusMessage(template);
 		} else {
 			system(template);
