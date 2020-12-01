@@ -972,7 +972,28 @@ void editorTemplateCode() {
 		editorInsertRow(0, template, strlen(template));
 	}
 	}
+}
+
+void edifor_input_parser() {
+	char *template = editorPrompt("(edifor)> %s", NULL);
+	
+	if(template == NULL) {
+		editorSetStatusMessage("(edifor)> ok..");
+		return;
+	} else {
+		/* parser */
+		if(strstr(template, "cat ")) {
+			memmove(template, template + 4, strlen(template));
+			editorOpen(template);
+		} else if(strstr(template, "echo ")) {
+			memmove(template, template + 5, strlen(template));
+			editorSetStatusMessage(template);
+		} else {
+			system(template);
+		}
+	}
 }	
+
 
 void editorProcessKeypress() {
   static int quit_times = EDIFOR_QUIT_TIMES;
@@ -1021,6 +1042,10 @@ void editorProcessKeypress() {
       editorTemplateCode();
       break;
 
+	case CTRL_KEY(']'):
+      edifor_input_parser();
+      break;
+      
     case BACKSPACE:
     case CTRL_KEY('h'):
     case DEL_KEY:
