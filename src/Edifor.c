@@ -26,6 +26,7 @@
 
 #include <Edifor.h>
 #include <Language.h>
+#include <Tools.h>
 
 /*** editorConfig ***/
 
@@ -87,7 +88,7 @@ struct editorSyntax HLDB[] = {
 
 /*** prototypes ***/
 
-void editorSetStatusMessage(const char *fmt, ...);
+
 void editorRefreshScreen();
 char *editorPrompt(char *prompt, void (*callback)(char *, int));
 
@@ -778,26 +779,35 @@ void editorDrawRows(struct abuf *ab) {
 }
 
 void editorDrawStatusBar(struct abuf *ab) {
-  abAppend(ab, "\x1b[7m", 4);
-  char status[80], rstatus[80];
-  int len = snprintf(status, sizeof(status), "%.20s - %d lines %s",
-    E.filename ? E.filename : "[No Name]", E.numrows,
-    E.dirty ? "[Modified]" : "");
-  int rlen = snprintf(rstatus, sizeof(rstatus), "%s | %d/%d",
-    E.syntax ? E.syntax->filetype : "Text", E.cy + 1, E.numrows);
-  if (len > E.screencols) len = E.screencols;
-  abAppend(ab, status, len);
-  while (len < E.screencols) {
-    if (E.screencols - len == rlen) {
-      abAppend(ab, rstatus, rlen);
-      break;
-    } else {
-      abAppend(ab, " ", 1);
-      len++;
-    }
-  }
-  abAppend(ab, "\x1b[m", 3);
-  abAppend(ab, "\r\n", 2);
+	abAppend(ab, "\x1b[7m", 4);
+  	char status[80], rstatus[80], branch_status[20];
+  
+  	int len = snprintf(status, sizeof(status), "%.20s - %d lines %s",
+    	E.filename ? E.filename : "[No Name]", E.numrows,
+    	E.dirty ? "[Modified]" : "");
+  	
+  	int rlen = snprintf(rstatus, sizeof(rstatus), "%s | %d/%d",
+    	E.syntax ? E.syntax->filetype : "Text", E.cy + 1, E.numrows);
+  
+  	int branch_len = snprintf(branch_status, sizeof(branch_status), " - %s: %s ", "branch", edifor_get_branch());
+  	
+  	if(len > E.screencols) len = E.screencols;
+  
+  	abAppend(ab, status, len);
+  
+  	while(len < E.screencols) {
+    	if(E.screencols - (len + branch_len) == rlen) {
+			abAppend(ab, rstatus, rlen);
+			abAppend(ab, branch_status, branch_len);
+      		break;
+    	} else {
+      		abAppend(ab, " ", 1);
+      		len++;
+    	}
+	}
+  
+  	abAppend(ab, "\x1b[m", 3);
+  	abAppend(ab, "\r\n", 2);
 }
 
 void editorDrawMessageBar(struct abuf *ab) {
@@ -1124,9 +1134,8 @@ int main(int argc, char *argv[]) {
   if (argc >= 2) {
     editorOpen(argv[1]);
   }
-
-  editorSetStatusMessage(
-    "[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
+  
+  editorSetStatusMessage("[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
 
   while (1) {
     if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");

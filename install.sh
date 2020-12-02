@@ -1,2 +1,2 @@
 #!/bin/sh
-gcc -I./include/ ./src/Edifor.c -o /bin/edifor
+gcc -I./include/ -I./libraries/ ./src/Tools.c ./src/Edifor.c -o /bin/edifor

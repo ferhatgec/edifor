@@ -30,6 +30,13 @@
 #define HL_HIGHLIGHT_NUMBERS (1<<0)
 #define HL_HIGHLIGHT_STRINGS (1<<1)
 
+#define _true 1
+#define _false 0
+
+#define _bool unsigned
+
+void editorSetStatusMessage(const char *fmt, ...);
+
 enum editorKey {
   BACKSPACE = 127,
   ARROW_LEFT = 1000,
