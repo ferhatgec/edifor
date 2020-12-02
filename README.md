@@ -1,6 +1,8 @@
 # Fegeya Edifor
 ## Mostly inspired CLI Code editor.
 
+![edifor console? clock widget? really?](/resource/window.png)
+
 ## Features, Goals:
   * [x] Syntax Highlighting (^ = Code template support)
     * [x] C^
