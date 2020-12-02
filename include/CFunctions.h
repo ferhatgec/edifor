@@ -5,14 +5,11 @@
 #
 # */
 
-#ifndef TOOLS_H
-#define TOOLS_H
+#ifndef C_FUNCTIONS_H
+#define C_FUNCTIONS_H
 
 #include <stdio.h>
 
-char* edifor_get_branch();
-char* edifor_clock_system();
+char *substring(char *str, unsigned pos, unsigned len);
 
-char* edifor_get_date();
-
-#endif // TOOLS_H
+#endif // C_FUNCTIONS_H
