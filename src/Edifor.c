@@ -780,7 +780,7 @@ void editorDrawRows(struct abuf *ab) {
 
 void editorDrawStatusBar(struct abuf *ab) {
 	abAppend(ab, "\x1b[7m", 4);
-  	char status[80], rstatus[80], branch_status[20];
+  	char status[80], rstatus[80], branch_status[40];
   
   	int len = snprintf(status, sizeof(status), "%.20s - %d lines %s",
     	E.filename ? E.filename : "[No Name]", E.numrows,
@@ -789,16 +789,16 @@ void editorDrawStatusBar(struct abuf *ab) {
   	int rlen = snprintf(rstatus, sizeof(rstatus), "%s | %d/%d",
     	E.syntax ? E.syntax->filetype : "Text", E.cy + 1, E.numrows);
   
-  	int branch_len = snprintf(branch_status, sizeof(branch_status), " - %s: %s ", "branch", edifor_get_branch());
+  	int branch_len = snprintf(branch_status, sizeof(branch_status), " ⎇  [%s] - ", edifor_get_branch());
   	
   	if(len > E.screencols) len = E.screencols;
   
   	abAppend(ab, status, len);
   
   	while(len < E.screencols) {
-    	if(E.screencols - (len + branch_len) == rlen) {
-			abAppend(ab, rstatus, rlen);
+    	if(E.screencols - (len + branch_len - 2) == rlen) {
 			abAppend(ab, branch_status, branch_len);
+			abAppend(ab, rstatus, rlen);
       		break;
     	} else {
       		abAppend(ab, " ", 1);

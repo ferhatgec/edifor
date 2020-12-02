@@ -23,15 +23,16 @@
 #include <filesystemplusplus.h>
 
 char* edifor_get_branch() {
-	/* get current working dir */
-	char *cwd;
+	/* get branch name (git)
+	   TODO: Add mercurial support. */
+	char *branch;
    	
 	if(is_exist(".git") == _true) {
-			cwd = ExecWithOutput("git branch | grep \"^\*\" | sed 's/^..//'");
+		branch = ExecWithOutput("git branch | grep \"^\*\" | sed 's/^..//'");
 			
-			cwd[strlen(cwd) - 1] = '\0';
-			
-			return cwd;
+		branch[strlen(branch) - 1] = '\0';
+		
+		return branch;
 	}
 		
 	return "";
