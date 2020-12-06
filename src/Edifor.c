@@ -507,7 +507,12 @@ void editorInsertNewline() {
 }
 
 void editorDelChar() {
-  if (E.cy == E.numrows) return;
+  if (E.cy == E.numrows) {
+  	E.cy--;
+	E.cx = E.row[E.cy].size;
+  	return;
+  }
+  
   if (E.cx == 0 && E.cy == 0) return;
 
   erow *row = &E.row[E.cy];
@@ -779,7 +784,7 @@ void editorDrawRows(struct abuf *ab) {
 }
 
 void editorDrawStatusBar(struct abuf *ab) {
-	abAppend(ab, "\x1b[7m", 4);
+	abAppend(ab, "\x1b[0m", 4);
   	char status[80], rstatus[80], branch_status[40];
   
   	int len = snprintf(status, sizeof(status), "%.20s - %d lines %s",
