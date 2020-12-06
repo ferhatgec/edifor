@@ -22,7 +22,7 @@
 #include <unistd.h>
 
 #define EDIFOR_VERSION "0.2-beta-2"
-#define EDIFOR_TAB_STOP 8
+#define EDIFOR_TAB_STOP 4
 #define EDIFOR_QUIT_TIMES 3
 
 #define CTRL_KEY(k) ((k) & 0x1f)
@@ -93,7 +93,7 @@ struct editorConfig {
   erow *row;
   int dirty;
   char *filename;
-  char statusmsg[80];
+  char statusmsg[200];
   time_t statusmsg_time;
   struct editorSyntax *syntax;
   struct termios orig_termios;

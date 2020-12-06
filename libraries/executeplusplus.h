@@ -18,12 +18,12 @@
 #define MAXCOM 1000 
 #define MAXLIST 100 
 
-char inputString[1000], *parsedArgs[100];
-char* parsedArgsPiped[MAXLIST]; 
-int execFlag = 0;
-char* directory;
+static char inputString[1000], *parsedArgs[100];
+static char* parsedArgsPiped[MAXLIST]; 
+static int execFlag = 0;
+static char* directory;
 
-int ParsePipe(char* str, char** strpiped) { 
+static int ParsePipe(char* str, char** strpiped) { 
 	int i; 
 	for(i = 0; i < 2; i++) { 
 		strpiped[i] = strsep(&str, "|"); 
@@ -37,7 +37,7 @@ int ParsePipe(char* str, char** strpiped) {
 		return 1;  
 } 
 
-void ParseSpace(char* str, char** parsed) { 
+static void ParseSpace(char* str, char** parsed) { 
 	int i; 
 	  
 	for (i = 0; i < MAXLIST; i++) { 
@@ -51,7 +51,7 @@ void ParseSpace(char* str, char** parsed) {
 	} 
 } 
 
-int ProcessString(char* str, char** parsed, char** parsedpipe) {   
+static int ProcessString(char* str, char** parsed, char** parsedpipe) {   
 	char* strpiped[2]; 
 	int piped = 0; 
 	  
@@ -66,7 +66,7 @@ int ProcessString(char* str, char** parsed, char** parsedpipe) {
 	return 1 + piped; 
 } 
 
-void ExecuteArgs(const char* name, char** parsed) { 
+static void ExecuteArgs(const char* name, char** parsed) { 
 	// Forking a child 
 	pid_t pid = fork();  
 	  
@@ -86,7 +86,7 @@ void ExecuteArgs(const char* name, char** parsed) {
 	} 
 }
 	
-void ExecuteArgsPiped(const char* name, char** parsed, char** parsedpipe) { 
+static void ExecuteArgsPiped(const char* name, char** parsed, char** parsedpipe) { 
 	// 0 is read end, 1 is write end 
 	int pipefd[2];  
 	pid_t p1, p2; 
@@ -142,7 +142,7 @@ void ExecuteArgsPiped(const char* name, char** parsed, char** parsedpipe) {
 	} 
 }
 	
-void RunFunction(const char* name, const char* exec) {
+static void RunFunction(const char* name, const char* exec) {
 	strcpy(inputString, exec);
 	
 	execFlag = ProcessString(inputString, 
@@ -157,12 +157,12 @@ void RunFunction(const char* name, const char* exec) {
 	}
 }
 
-void DefaultFunction(const char* exec) {
+static void DefaultFunction(const char* exec) {
 	system(exec);
 }
 
 /* mostly part from rosettacode */
-char* ExecWithOutput(const char* command) {
+static char* ExecWithOutput(const char* command) {
 	FILE *fd;
     fd = popen(command, "r");
     

@@ -28,6 +28,7 @@
 #include <Language.h>
 #include <Tools.h>
 
+#include <executeplusplus.h>
 /*** editorConfig ***/
 
 struct editorConfig E;
@@ -892,6 +893,8 @@ char *editorPrompt(char *prompt, void (*callback)(char *, int)) {
 
     if (callback) callback(buf, c);
   }
+  
+  free(buf);
 }
 
 void editorMoveCursor(int key) {
@@ -989,6 +992,23 @@ void editorTemplateCode() {
 	}
 }
 
+char *replace_str(char *str, char *orig, char *rep)
+{
+	static char buffer[4096];
+char *p;
+int i=0;
+
+while(str[i]){
+    if (!(p=strstr(str+i,orig)))  return str;
+    strncpy(buffer+strlen(buffer),str+i,(p-str)-i);
+    buffer[p-str] = '\0';
+    strcat(buffer,rep);
+    i=(p-str)+strlen(orig);
+}
+
+return buffer;
+}
+
 void edifor_input_parser() {
 	char *template = editorPrompt("(edifor)> %s", NULL);
 	
@@ -1012,8 +1032,17 @@ void edifor_input_parser() {
 		} else if(strstr(template, "tip")) {
 			editorSetStatusMessage(
     			"[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
+		} else if(strstr(template, "ls")) {
+			template = ExecWithOutput("ls");
+			
+			template = replace_str(template, "\n", " ");
+		
+			editorSetStatusMessage(template);
 		} else {
-			system(template);
+			template = ExecWithOutput(template);
+			template[strlen(template) - 1] = '\0';
+			
+			editorSetStatusMessage(template);
 		}
 	}
 }	
