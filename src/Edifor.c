@@ -209,7 +209,7 @@ int getWindowSize(int *rows, int *cols) {
 /*** syntax highlighting ***/
 
 int is_separator(int c) {
-  return isspace(c) || c == '\0' || strchr(",.()+-/*=~%<>[];", c) != NULL;
+  return isspace(c) || c == '\0' || strchr(",.()+-/*=~%<>{}|&'_[];::", c) != NULL;
 }
 
 void editorUpdateSyntax(erow *row) {
@@ -297,6 +297,10 @@ void editorUpdateSyntax(erow *row) {
       }
     }
 
+	if (is_separator(c)) {
+		row->hl[i] = HL_KEYWORD2;
+	}
+        
     if (prev_sep) {
       int j;
       for (j = 0; keywords[j]; j++) {
@@ -327,16 +331,17 @@ void editorUpdateSyntax(erow *row) {
     editorUpdateSyntax(&E.row[row->idx + 1]);
 }
 
+/* bright colors */
 int editorSyntaxToColor(int hl) {
   switch (hl) {
     case HL_COMMENT:
-    case HL_MLCOMMENT: return 36;
-    case HL_KEYWORD1: return 33;
-    case HL_KEYWORD2: return 32;
-    case HL_STRING: return 35;
-    case HL_NUMBER: return 31;
-    case HL_MATCH: return 34;
-    default: return 37;
+    case HL_MLCOMMENT: return 96;
+    case HL_KEYWORD1: return 93;
+    case HL_KEYWORD2: return 92;
+    case HL_STRING: return 95;
+    case HL_NUMBER: return 91;
+    case HL_MATCH: return 94;
+    default: return 97;
   }
 }
 
