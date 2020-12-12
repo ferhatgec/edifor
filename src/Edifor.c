@@ -1,5 +1,5 @@
 /* MIT License
-#
+# Mostly part from Kilo editor (tutorial) [antirez]
 # Copyright (c) 2020 Ferhat Geçdoğan All Rights Reserved.
 # Distributed under the terms of the MIT License.
 #
@@ -23,6 +23,7 @@
 #include <termios.h>
 #include <time.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include <Edifor.h>
 #include <Language.h>
@@ -1141,6 +1142,23 @@ void editorProcessKeypress() {
   quit_times = EDIFOR_QUIT_TIMES;
 }
 
+void updateWindowSize(void) {
+    if (getWindowSize(&E.screenrows,&E.screencols) == -1) {
+        exit(1);
+    }
+    
+    E.screenrows -= 2;
+}
+
+void handleWindowResizeSignal(int unused __attribute__((unused))) {
+    updateWindowSize();
+    
+    if (E.cy > E.screenrows) E.cy = E.screenrows - 1;
+    if (E.cx > E.screencols) E.cx = E.screencols - 1;
+    
+    editorRefreshScreen();
+}
+
 /*** init ***/
 
 void initEditor() {
@@ -1157,8 +1175,8 @@ void initEditor() {
   E.statusmsg_time = 0;
   E.syntax = NULL;
 
-  if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
-  E.screenrows -= 2;
+  updateWindowSize();
+  signal(SIGWINCH, handleWindowResizeSignal);
 }
 
 int main(int argc, char *argv[]) {
@@ -1172,9 +1190,7 @@ int main(int argc, char *argv[]) {
   editorSetStatusMessage("[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
 
   while (1) {
-    if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
-    E.screenrows -= 2;
-    
+    updateWindowSize();
     editorRefreshScreen();
     editorProcessKeypress();
   }
