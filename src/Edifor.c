@@ -90,7 +90,7 @@ struct editorSyntax HLDB[] = {
 
 /*** prototypes ***/
 
-
+void ediforHelp();
 void editorRefreshScreen();
 char *editorPrompt(char *prompt, void (*callback)(char *, int));
 
@@ -942,7 +942,7 @@ void editorReadOnlyMode() {
 	
 	do { template = editorPrompt("[read-only](edifor)> %s (ESC to cancel)", NULL); } while(template != NULL);
 	
-	editorSetStatusMessage("Ctrl-S = Save | Ctrl-Q = Quit | Ctrl-F = Find | CTRL-G = Template"); 
+	ediforHelp();
 }
 
 void editorTemplateCode() {
@@ -1014,7 +1014,7 @@ void edifor_input_parser() {
 	char *template = editorPrompt("(edifor)> %s", NULL);
 	
 	if(template == NULL) {
-		editorSetStatusMessage("(edifor)> ok..");
+		ediforHelp();
 		return;
 	} else {
 		/* parser */
@@ -1031,8 +1031,7 @@ void edifor_input_parser() {
 			
 			editorSetStatusMessage(template);
 		} else if(strstr(template, "tip")) {
-			editorSetStatusMessage(
-    			"[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
+			ediforHelp();
 		} else if(strstr(template, "ls")) {
 			template = ExecWithOutput("ls");
 			
@@ -1142,6 +1141,11 @@ void editorProcessKeypress() {
   quit_times = EDIFOR_QUIT_TIMES;
 }
 
+void ediforHelp() {
+	editorSetStatusMessage("[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
+}
+
+
 void updateWindowSize(void) {
     if (getWindowSize(&E.screenrows,&E.screencols) == -1) {
         exit(1);
@@ -1187,8 +1191,8 @@ int main(int argc, char *argv[]) {
     editorOpen(argv[1]);
   }
   
-  editorSetStatusMessage("[info](edifor)> tip: control + S = Save | Q = Quit | F = Find | G = Template | R : Read-Only");
-
+  ediforHelp();
+  
   while (1) {
     updateWindowSize();
     editorRefreshScreen();
